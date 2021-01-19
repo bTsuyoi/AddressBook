@@ -152,7 +152,7 @@ class AddressBook
 		System.out.println("***Welcome to Address Book Program***");
 		
 		while(choice != 4){
-			System.out.println("\n1. Create contact\n2. Edit contact by name\n3. Delete Contact\n4. Exit");
+			System.out.println("\n1. Create new person contact\n2. Edit contact by name\n3. Delete Contact by name \n4. Exit");
 			choice = sc.nextInt();
 			switch(choice){
 				case 1:
@@ -177,3 +177,4 @@ class AddressBook
 
 
 }
+	
