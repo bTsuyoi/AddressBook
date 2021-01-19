@@ -1,3 +1,4 @@
+
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -87,7 +88,6 @@ class AddressBook
 					sc.nextLine();	
 					if(choice < 1 || choice > 8)
 						break;
-					addressBook.remove(i);	
 					System.out.print("Enter field: ");
 					
 					field = sc.nextLine();	
@@ -121,6 +121,29 @@ class AddressBook
 			System.out.println("Details not found.");
 		}
 	}
+	public void toDeleteContact() {
+		Map<String,String> contact = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+
+		String first_Name, last_Name, field;
+		int choice=1;
+		System.out.println("Enter first name: ");
+		first_Name=sc.next();
+		System.out.println("Enter last name: ");
+		last_Name=sc.next();
+		String status="notfound";
+		for (int i=1; i<=entry; i++) {
+			contact = addressBook.get(i);
+			System.out.println(contact);
+			if(contact.get("First Name").equals(first_Name) && contact.get("Last Name").equals(last_Name)) {
+				status="found";
+				addressBook.remove(i);	
+				System.out.println("Contact Deleted");
+			}
+		}
+		if(status.equals("notfound")) {
+			System.out.println("Details not found.");
+		}
+	}
 	
 	public static void main(String[] args)	{
 		int choice = 1;
@@ -129,8 +152,7 @@ class AddressBook
 		System.out.println("***Welcome to Address Book Program***");
 		
 		while(choice != 4){
-			System.out.println("\n1. create contact         2. edit contact by name");
-			System.out.println("3. exit");
+			System.out.println("\n1. Create contact\n2. Edit contact by name\n3. Delete Contact\n4. Exit");
 			choice = sc.nextInt();
 			switch(choice){
 				case 1:
@@ -140,9 +162,12 @@ class AddressBook
 					addressBook.toEditContact();
 					break;
 				case 3:
+					addressBook.toDeleteContact();
+					break;
+				case 4:
 					System.out.println("Program is exited.");
 					System.exit(0);
-					break;	
+					break;
 				default:		
 					System.out.println("wrong choice");
 			}
@@ -152,4 +177,3 @@ class AddressBook
 
 
 }
-	
