@@ -6,6 +6,7 @@ import java.util.TreeMap;
 class AddressBook
 {
 	public static Scanner sc = new Scanner(System.in);
+	private String person="notfound";
 	static String name;
 	private String firstName,lastName, address, city, state, zip, phoneNumber, email;
 	private  Map<String,Map> library = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
@@ -13,12 +14,28 @@ class AddressBook
 	private  Map<String,String> contact = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 	static int entry=0;
 	
+	public void toCheckPerson() {
+		Map<String,String> contact = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		addressBook = library.get(name);
+			for (int i=1; i<=addressBook.size(); i++) {
+				contact = addressBook.get(i);
+				if(contact.get("First Name").equals(firstName) && contact.get("Last Name").equals(lastName)) {
+					person="found";
+				}
+				else {
+					person="notfound";
+				}
+			}
+	}
+	
 	public void toCreateContact() {
 		try {
 			Map<Integer,Map> addressBook = new TreeMap<>();
 			addressBook = library.get(name);
+			
 			for(int i: addressBook.keySet()) {
 				entry=1;
+				person="check";
 				contact = addressBook.get(i);
 				if(entry<i) {
 					entry=i;
@@ -29,6 +46,7 @@ class AddressBook
 		}
 		catch(NullPointerException e) {
 			entry=0;
+			String person="notfound";
 		}
 		Map<String,String> contact = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		System.out.print("Enter the contact person details");
@@ -37,7 +55,15 @@ class AddressBook
 		firstName = sc.nextLine();
 		System.out.print("Enter last name: ");
 		lastName = sc.nextLine();
+		if (person == "check") {
 			
+			toCheckPerson();
+			if(person == "found") {
+				System.out.println("\nDetails for this person already exists...");
+				process();
+			}
+		}
+		
 		System.out.print("Enter address: ");
 		address = sc.nextLine();
 			
@@ -241,4 +267,3 @@ class AddressBook
 
 		
 }
-
