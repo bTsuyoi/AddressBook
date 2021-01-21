@@ -226,7 +226,7 @@ class AddressBook
 		int choice = 1;
 		while(choice != 4){
 			System.out.println("\n1. Create new AddressBook.\n2. Change AddressBook\n3. Create new person contact in current AddressBook"
-					+ "\n4. Edit contact by name in current AddressBook.\n5. Delete Contact by name in current addressBook\n6. Exit");
+					+ "\n4. Edit contact by name in current AddressBook.\n5. Delete Contact by name in current addressBook\n6 Check people in State or City.\n7. Exit");
 			choice = sc.nextInt();
 			switch(choice){
 				case 1:
@@ -245,6 +245,9 @@ class AddressBook
 					toDeleteContact();
 					break;
 				case 6:
+					toShowPeopleInCity_State();
+					break;
+				case 7:
 					System.out.println("Program is exited.");
 					System.exit(0);
 					break;
@@ -252,6 +255,38 @@ class AddressBook
 					System.out.println("wrong choice");
 			}
 		}
+	}
+	public void toShowPeopleInCity_State() {
+		Map<String,String> contact = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+		addressBook = library.get(name);
+		String city=" ", state=" ";
+		int choice=1;
+		System.out.println("\n1. Check people in state \n2. Check people in city");
+		choice=sc.nextInt();
+		if(choice==1) {
+			System.out.println("Enter State: ");
+			state=sc.next();
+		}
+		else if(choice==2) {
+			System.out.println("Enter City: ");
+			city=sc.next();
+		}
+		else {
+			System.out.println("No entries available.....");
+		}
+		
+		String status="notfound";
+		for(String m: library.keySet()) {
+			addressBook = library.get(m);
+			for(int i: addressBook.keySet()) {
+				contact = addressBook.get(i);
+				if(contact.get("City").equals(city) || contact.get("State").equals(state)) {
+					System.out.println("\nFirst Name: "+contact.get("First Name"));
+					System.out.println("Last Name "+contact.get("Last Name"));
+				}
+			}
+		}
+		
 	}
 	public static void main(String[] args)	{
 		
@@ -267,3 +302,4 @@ class AddressBook
 
 		
 }
+
